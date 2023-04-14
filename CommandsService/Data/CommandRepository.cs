@@ -10,7 +10,7 @@ namespace CommandsService.Data
     [Route("api/[Controller]")]
     public class CommandRepository : ICommandRepository
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _context = null!;
         public CommandRepository(AppdbContext context)
         {
             _context = context;
@@ -32,7 +32,7 @@ namespace CommandsService.Data
                 throw new ArgumentNullException(nameof(command));
             }
             command.PlatformId = platformId;
-            _context.Commands.Add(command);
+            _context.Commands?.Add(command);
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
@@ -51,7 +51,7 @@ namespace CommandsService.Data
         {
             return _context.Commands
                 .Where(c => c.PlatformId == platformId && c.Id == commandId)
-                .FirstOrDefault();
+                .FirstOrDefault() ?? new Command();
         }
 
         public bool PlatformExists(int platformId)
@@ -62,6 +62,11 @@ namespace CommandsService.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public bool ExternalPlatformExists(int externalPlatformId)
+        {
+            return _context.Platforms.Any(p => p.ExternalId == externalPlatformId);
         }
     }
 }

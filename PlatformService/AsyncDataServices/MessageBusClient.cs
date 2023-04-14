@@ -30,7 +30,7 @@ namespace PlatformService.AsyncDataServices
                 _channel = _connection.CreateModel();
 
                 _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
-
+ 
                 _connection.ConnectionShutdown += RabbitMQ_Connectionshutdown;
 
                 Console.WriteLine($"--> Connected To MessageBus");
@@ -48,6 +48,7 @@ namespace PlatformService.AsyncDataServices
             if(_connection != null && _connection.IsOpen)
             {
                 Console.WriteLine("--> RabbitMQ Connection Open, sending Message...");
+                SendMessage(message);
             }
             else{
                 Console.WriteLine("--> RabbitMQ Connection Closed, not sending  ");

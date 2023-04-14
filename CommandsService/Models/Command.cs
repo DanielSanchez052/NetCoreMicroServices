@@ -13,6 +13,6 @@ namespace CommandsService.Models
         public string CommandLine { get; set; } = null!;
         [Required]
         public int PlatformId { get; set; }
-        public Platform? Platform { get; set; }
+        public Platform Platform { get; set; } = new Platform();
     }
 }

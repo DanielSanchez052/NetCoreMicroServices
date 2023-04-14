@@ -13,7 +13,7 @@ using PlatformService.syncDataServices.http;
 
 namespace PlatformService.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/platform/[Controller]")]
     public class PlatformsController : ControllerBase
     {
         private readonly IPlatformRepo _repository;
@@ -65,7 +65,7 @@ namespace PlatformService.Controllers
             try{
                 await _commandDataClient.SendPlatformToCommand(platformReadDto);
             }catch(Exception ex){
-                Console.WriteLine($"could not send synchronously: {ex.Message}");
+                Console.WriteLine($"--> could not send synchronously: {ex.Message}");
             }
 
             //Send Async Message

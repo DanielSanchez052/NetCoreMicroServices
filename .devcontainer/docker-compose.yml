@@ -6,8 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=https-credential
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     volumes:
       - ../..:/workspaces:cached
+      - ~/.aspnet/https:/https:ro
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -28,6 +34,8 @@ services:
     environment:
       SA_PASSWORD: P@ssw0rd
       ACCEPT_EULA: Y
+    ports:
+      - 1431:1431
     networks:
       - app_network
 
@@ -35,16 +43,20 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   rabbitmq:
-        container_name: "rabbitmq"
-        image: rabbitmq:3-management
-        environment:
-            - RABBITMQ_DEFAULT_USER=guest
-            - RABBITMQ_DEFAULT_PASS=guest
-        ports:
-            # AMQP protocol port
-            - '5672:5672'
-            # HTTP management UI
-            - '15672:15672'
+    container_name: "rabbitmq"
+    image: rabbitmq:3-management
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+        # AMQP protocol port
+        - 5672:5672
+        # HTTP management UI
+        - 15672:15672
+    networks:
+      - app_network
+    
+      
 networks:
   app_network:
     driver: bridge  

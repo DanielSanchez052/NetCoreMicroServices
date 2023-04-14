@@ -13,6 +13,8 @@ namespace PlatformService.syncDataServices.http
         {
             _httpClient = httpClient;
             _configuration = confifiguration;
+        
+            // _httpClient.
         }
 
         public async Task SendPlatformToCommand(PlatformReadDto platform)

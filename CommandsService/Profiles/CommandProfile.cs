@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CommandsService.Models;
 using CommandsService.Dtos;
+using System.Net;
 
 namespace CommandsService.Profiles
 {
@@ -16,6 +17,10 @@ namespace CommandsService.Profiles
             CreateMap<CommandCreateDto, Command>();
             CreateMap<Command, CommandReadDto>();
 
+            CreateMap<PlatformPublishedDto, Platform>()
+                .ForMember(
+                    dest => dest.ExternalId, 
+                    opt => opt.MapFrom(src => src.Id));
         }
     }
 }
