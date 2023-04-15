@@ -62,11 +62,11 @@ namespace PlatformService.Controllers
 
 
             //Sending Sync message
-            try{
-                await _commandDataClient.SendPlatformToCommand(platformReadDto);
-            }catch(Exception ex){
-                Console.WriteLine($"--> could not send synchronously: {ex.Message}");
-            }
+            // try{
+            //     await _commandDataClient.SendPlatformToCommand(platformReadDto);
+            // }catch(Exception ex){
+            //     Console.WriteLine($"--> could not send synchronously: {ex.Message}");
+            // }
 
             //Send Async Message
             try

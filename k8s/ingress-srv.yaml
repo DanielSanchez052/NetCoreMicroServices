@@ -10,7 +10,7 @@ spec:
     - host: acme.com
       http:
         paths:
-          - path: /api/platforms
+          - path: /api/platform
             pathType: Prefix
             backend: 
               service:
